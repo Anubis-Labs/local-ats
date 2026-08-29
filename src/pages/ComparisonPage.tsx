@@ -106,7 +106,7 @@ export const ComparisonPage: React.FC = () => {
                 if (e.target.value) handleAdd(e.target.value);
               }}
               value=""
-              className="h-8 px-3 rounded-[6px] border border-white/[0.1] bg-[#12151D] text-xs font-semibold text-white focus:outline-none"
+              className="h-8 px-3 rounded-[6px] border border-black/10 dark:border-white/10 bg-white dark:bg-[#12151D] text-xs font-semibold text-slate-800 dark:text-zinc-200 focus:outline-none shadow-xs cursor-pointer"
             >
               <option value="" disabled>+ Add Profile to Compare</option>
               {allCandidates.map((c) => (
@@ -123,7 +123,7 @@ export const ComparisonPage: React.FC = () => {
               }}
               className="gap-1.5 font-semibold text-xs"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#d4c5a9]" strokeWidth={2} />
+              <Sparkles className="w-3.5 h-3.5 text-[#8A6D3B] dark:text-[#d4c5a9]" strokeWidth={2} />
               <span>AI Tradeoff Brief</span>
             </Button>
           </div>
@@ -135,75 +135,72 @@ export const ComparisonPage: React.FC = () => {
       {/* ========================================================================= */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-8 max-w-7xl mx-auto w-full">
         {/* AI Tradeoff Surface */}
-        <div className="p-6 rounded-[12px] blend-overlay-champagne space-y-3 specimen-chamfer specimen-chamfer-champagne shadow-xl">
-          <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-            <Sparkles className="w-4 h-4 text-[#d4c5a9]" />
+        <div className="p-6 rounded-[12px] bg-[#8A6D3B]/[0.06] dark:bg-[#d4c5a9]/[0.08] border border-[#8A6D3B]/30 dark:border-[#d4c5a9]/30 space-y-3 specimen-chamfer specimen-chamfer-champagne shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#8A6D3B] dark:text-[#d4c5a9] uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-[#8A6D3B] dark:text-[#d4c5a9]" />
             <span>AI Comparative Tradeoff Analysis</span>
           </div>
-          <p className="text-xs text-zinc-200 leading-relaxed font-sans">
-            <strong>Tariq Al-Mansoor</strong> brings superior SAGD brownfield modeling depth (12y Fluor Canada) and active CET certification, ready for immediate unassisted tie-in coordination. <strong>Brendan Gallagher</strong> (7y Jacobs) represents a high-potential intermediate designer with strong CADWorx modeling capability at a lower compensation band ($115k vs $120k CAD).
+          <p className="text-xs text-slate-800 dark:text-zinc-200 leading-relaxed font-sans">
+            <strong className="text-slate-900 dark:text-white">Tariq Al-Mansoor</strong> brings superior SAGD brownfield modeling depth (12y Fluor Canada) and active CET certification, ready for immediate unassisted tie-in coordination. <strong className="text-slate-900 dark:text-white">Brendan Gallagher</strong> (7y Jacobs) represents a high-potential intermediate designer with strong CADWorx modeling capability at a lower compensation band ($115k vs $120k CAD).
           </p>
         </div>
 
         {/* Spec Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {candidates.map((c, idx) => (
+          {candidates.map((c) => (
             <div
               key={c.id}
-              className={cn(
-                'rounded-[12px] p-6 space-y-5 shadow-xl specimen-chamfer',
-                idx % 2 === 0 ? 'bg-card-topography' : 'bg-card-cad'
-              )}
+              className="rounded-[12px] p-6 space-y-5 shadow-sm border border-black/[0.08] dark:border-white/10 bg-white dark:bg-[#12151D] specimen-chamfer"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <img
                     src={c.avatar}
                     alt={c.name}
-                    className="w-12 h-12 rounded-[9px] object-cover border border-white/15 shrink-0"
+                    className="w-12 h-12 rounded-[9px] object-cover border border-black/10 dark:border-white/15 shrink-0"
                   />
                   <div>
-                    <h3 className="font-bold text-base text-white">{c.name}</h3>
-                    <div className="text-xs text-zinc-300 mt-0.5">{c.currentRole}</div>
+                    <h3 className="font-bold text-base text-slate-900 dark:text-white">{c.name}</h3>
+                    <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">{c.currentRole}</div>
                   </div>
                 </div>
                 {candidates.length > 2 && (
-                  <button onClick={() => handleRemove(c.id)} className="text-zinc-400 hover:text-white p-1">
+                  <button onClick={() => handleRemove(c.id)} className="text-slate-400 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white p-1">
                     <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
 
-              <div className="divide-y divide-white/10 text-xs space-y-3 pt-2">
+              <div className="divide-y divide-black/[0.06] dark:divide-white/10 text-xs space-y-3 pt-2">
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Fit Score</span>
-                  <span className="font-mono font-bold text-[#d4c5a9]">{c.rating >= 4 ? '98%' : '84%'}</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Fit Score</span>
+                  <span className="font-mono font-bold text-[#8A6D3B] dark:text-[#d4c5a9]">{c.rating >= 4 ? '98%' : '84%'}</span>
                 </div>
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Experience</span>
-                  <span className="font-semibold text-white">{c.experienceYears} Years</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Experience</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{c.experienceYears} Years</span>
                 </div>
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Current Employer</span>
-                  <span className="font-semibold text-white">{c.currentCompany}</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Current Employer</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{c.currentCompany}</span>
                 </div>
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Location</span>
-                  <span className="text-zinc-200">{c.location}</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Location</span>
+                  <span className="text-slate-700 dark:text-zinc-200">{c.location}</span>
                 </div>
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Target Comp</span>
-                  <span className="font-semibold text-[#d4c5a9]">{c.compensationExpectation || '$120,000 CAD'}</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Target Comp</span>
+                  <span className="font-semibold text-[#8A6D3B] dark:text-[#d4c5a9]">{c.compensationExpectation || '$120,000 CAD'}</span>
                 </div>
                 <div className="flex justify-between pt-3">
-                  <span className="text-zinc-400 font-medium">Availability</span>
-                  <span className="font-semibold text-white">{c.availability}</span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">Availability</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{c.availability}</span>
                 </div>
               </div>
 
               {/* Competency Tags */}
-              <div className="space-y-2 pt-2 border-t border-white/10">
-                <div className="text-[10px] font-bold uppercase text-zinc-400">Core Competencies</div>
+              <div className="space-y-2 pt-2 border-t border-black/[0.06] dark:border-white/10">
+                <div className="text-[10px] font-bold uppercase text-slate-500 dark:text-zinc-400">Core Competencies</div>
                 <div className="flex flex-wrap gap-1.5">
                   {c.tags.map((t) => (
                     <Badge key={t} variant="neutral" size="sm">
@@ -214,14 +211,14 @@ export const ComparisonPage: React.FC = () => {
               </div>
 
               {/* Action Strip */}
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-3 border-t border-black/[0.06] dark:border-white/10 flex items-center justify-between">
                 <Button
                   size="xs"
                   variant="machined"
                   onClick={() => navigate(`/candidates/${c.id}`)}
-                  className="font-semibold"
+                  className="font-semibold text-xs"
                 >
-                  Open Dossier →
+                  <span>Open Dossier →</span>
                 </Button>
               </div>
             </div>
