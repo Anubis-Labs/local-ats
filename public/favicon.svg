@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="prismTopGrad" x1="8" y1="6" x2="40" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF7EB" />
+      <stop offset="35%" stop-color="#EAD8BD" />
+      <stop offset="70%" stop-color="#C4A86B" />
+      <stop offset="100%" stop-color="#8A6D3B" />
+    </linearGradient>
+    <linearGradient id="prismLeftGrad" x1="8" y1="15" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2A2E3D" />
+      <stop offset="50%" stop-color="#171922" />
+      <stop offset="100%" stop-color="#0B0C10" />
+    </linearGradient>
+    <linearGradient id="prismRightGrad" x1="40" y1="15" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3D3222" />
+      <stop offset="50%" stop-color="#221C14" />
+      <stop offset="100%" stop-color="#0E0C09" />
+    </linearGradient>
+    <linearGradient id="prismWireGrad" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F5EBD9" />
+      <stop offset="50%" stop-color="#D4C5A9" />
+      <stop offset="100%" stop-color="#7A5E2E" />
+    </linearGradient>
+  </defs>
+  <path d="M8 15.5L24 24.5V42.5L8 33.5V15.5Z" fill="url(#prismLeftGrad)" stroke="url(#prismWireGrad)" stroke-width="1.75" stroke-linejoin="round" />
+  <path d="M24 24.5L40 15.5V33.5L24 42.5V24.5Z" fill="url(#prismRightGrad)" stroke="url(#prismWireGrad)" stroke-width="1.75" stroke-linejoin="round" />
+  <path d="M24 5.5L40 14.5L24 23.5L8 14.5L24 5.5Z" fill="url(#prismTopGrad)" stroke="url(#prismWireGrad)" stroke-width="1.75" stroke-linejoin="round" />
+  <path d="M24 10.5L33 15.5L24 20.5L15 15.5L24 10.5Z" stroke="#1A1813" stroke-width="1.2" stroke-opacity="0.5" fill="none" />
+  <path d="M13 21.5L20 25.5V34.5" stroke="url(#prismWireGrad)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M35 21.5L28 25.5V34.5" stroke="url(#prismWireGrad)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="24" cy="24.5" r="3.2" fill="#FFFFFF" />
+  <circle cx="24" cy="24.5" r="1.5" fill="#8A6D3B" />
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none">
+  <defs>
+    <linearGradient id="geoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1816" stop-opacity="0.96"/>
+      <stop offset="50%" stop-color="#12100E" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#080706" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="strataGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4C5A9" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#D4C5A9" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#A68D5D" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#geoGrad)"/>
+  <g stroke="url(#strataGold)" stroke-width="1.5" fill="none">
+    <path d="M 0 150 Q 360 80, 720 180 T 1440 120"/>
+    <path d="M 0 250 Q 360 180, 720 280 T 1440 220"/>
+    <path d="M 0 350 Q 360 280, 720 380 T 1440 320"/>
+    <path d="M 0 480 Q 360 410, 720 510 T 1440 450"/>
+    <path d="M 0 600 Q 360 530, 720 630 T 1440 570"/>
+    <path d="M 0 720 Q 360 650, 720 750 T 1440 690"/>
+    <path d="M 0 840 Q 360 770, 720 870 T 1440 810"/>
+  </g>
+</svg>

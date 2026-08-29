@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none">
+  <defs>
+    <linearGradient id="cfdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141822" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#0E121B" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#080A0F" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="flowCopper" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4C5A9" stop-opacity="0.05"/>
+      <stop offset="30%" stop-color="#D4C5A9" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#56A396" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#56A396" stop-opacity="0.05"/>
+    </linearGradient>
+    <pattern id="cfdGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+      <circle cx="0" cy="0" r="1" fill="rgba(212,197,169,0.15)"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="900" fill="url(#cfdGrad)"/>
+  <rect width="1440" height="900" fill="url(#cfdGrid)"/>
+  <g stroke="url(#flowCopper)" stroke-width="1.5" fill="none" opacity="0.8">
+    <path d="M -100 200 C 300 150, 600 450, 1100 300 S 1500 500, 1600 450"/>
+    <path d="M -100 240 C 320 190, 620 490, 1120 340 S 1520 540, 1600 490"/>
+    <path d="M -100 280 C 340 230, 640 530, 1140 380 S 1540 580, 1600 530"/>
+    <path d="M -100 320 C 360 270, 660 570, 1160 420 S 1560 620, 1600 570"/>
+    <path d="M 200 -50 C 450 300, 400 700, 800 950"/>
+    <path d="M 240 -50 C 490 300, 440 700, 840 950"/>
+    <path d="M 280 -50 C 530 300, 480 700, 880 950"/>
+  </g>
+</svg>

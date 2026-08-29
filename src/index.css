@@ -1,0 +1,540 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  :root {
+    --bg-canvas: #F4F5F8;
+    --bg-sidebar: #ECEEF2;
+    --bg-surface-glass: rgba(255, 255, 255, 0.95);
+    --bg-surface-raised: #FFFFFF;
+    --bg-surface-card: #FFFFFF;
+    --bg-surface-sunken: #EDEDF2;
+    
+    --text-primary: #0F1218;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    
+    --glint-edge: rgba(255, 255, 255, 0.95);
+    --champagne-accent: #8A6D3B;
+    --champagne-soft: rgba(138, 109, 59, 0.12);
+    --teal-verified: #1B6A5D;
+    --amber-attention: #B45309;
+    --mineral-red: #BE123C;
+  }
+
+  .dark {
+    --bg-canvas: #07080A;
+    --bg-sidebar: #0B0D12;
+    --bg-surface-glass: rgba(17, 20, 28, 0.92);
+    --bg-surface-raised: #161A24;
+    --bg-surface-card: #12151D;
+    --bg-surface-sunken: #08090D;
+    
+    --text-primary: #FFFFFF;
+    --text-secondary: #A6A9B6;
+    --text-muted: #626572;
+    
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    
+    --glint-edge: rgba(255, 255, 255, 0.12);
+    --champagne-accent: #D4C5A9;
+    --champagne-soft: rgba(212, 197, 169, 0.12);
+    --teal-verified: #56A396;
+    --amber-attention: #D69738;
+    --mineral-red: #B85858;
+  }
+
+  * {
+    border-color: var(--border-subtle);
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dark body {
+    background: 
+      linear-gradient(180deg, rgba(7, 8, 10, 0.94) 0%, rgba(7, 8, 10, 0.97) 100%),
+      url('/assets/backgrounds/bg_industrial_facility.jpg') center/cover no-repeat fixed;
+  }
+
+  /* Sleek custom scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(120, 130, 150, 0.25);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 130, 150, 0.45);
+  }
+
+  /* Sidebar auto-hiding scrollbar: hidden by default, visible only when hovering over open or closed side menu */
+  .sidebar-scroll-container {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.2s ease-in-out;
+  }
+
+  .sidebar-scroll-container::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .sidebar-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar-scroll-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .sidebar-hover-parent:hover .sidebar-scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(138, 109, 59, 0.35);
+  }
+
+  .dark .sidebar-hover-parent:hover .sidebar-scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(212, 197, 169, 0.3);
+  }
+
+  .sidebar-hover-parent:hover .sidebar-scroll-container {
+    scrollbar-color: rgba(138, 109, 59, 0.35) transparent;
+  }
+
+  .dark .sidebar-hover-parent:hover .sidebar-scroll-container {
+    scrollbar-color: rgba(212, 197, 169, 0.3) transparent;
+  }
+
+  .sidebar-hover-parent:hover .sidebar-scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(138, 109, 59, 0.65);
+  }
+
+  .dark .sidebar-hover-parent:hover .sidebar-scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(212, 197, 169, 0.6);
+  }
+}
+
+/* ========================================================================= */
+/* 1. MACHINED SPECIMEN CHAMFERS & LUMINOUS GLINTS */
+/* ========================================================================= */
+
+.specimen-chamfer {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 var(--glint-edge);
+}
+
+.dark .specimen-chamfer {
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.specimen-chamfer-champagne {
+  border-color: rgba(138, 109, 59, 0.3) !important;
+}
+
+.dark .specimen-chamfer-champagne {
+  border-color: rgba(212, 197, 169, 0.35) !important;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(212, 197, 169, 0.25) !important;
+}
+
+/* Machined Keycap Kbd styling */
+.kbd-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F3F6 100%);
+  color: #475569;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.dark .kbd-shortcut {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(180deg, #1C202C 0%, #11141C 100%);
+  color: #94A3B8;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Active Nav Glow Bar */
+.nav-active-glow {
+  position: relative;
+}
+
+.nav-active-glow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: #8A6D3B;
+  box-shadow: 0 0 8px rgba(138, 109, 59, 0.6);
+}
+
+.dark .nav-active-glow::before {
+  background: #D4C5A9;
+  box-shadow: 0 0 10px rgba(212, 197, 169, 0.7);
+}
+
+/* ========================================================================= */
+/* 2. THEMATIC CARDS (DARK OBSIDIAN MODE) */
+/* ========================================================================= */
+
+.bg-card-cad {
+  background: 
+    linear-gradient(180deg, rgba(14, 18, 26, 0.92) 0%, rgba(8, 11, 17, 0.96) 100%),
+    url('/assets/backgrounds/bg_cad_piping.jpg') center/cover no-repeat !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.bg-card-topography {
+  background: 
+    linear-gradient(180deg, rgba(22, 24, 32, 0.90) 0%, rgba(12, 14, 20, 0.95) 100%),
+    url('/assets/backgrounds/bg_topography.jpg') center/cover no-repeat !important;
+  border: 1px solid rgba(212, 197, 169, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(247, 239, 224, 0.35);
+}
+
+.bg-card-mesh {
+  background: 
+    linear-gradient(180deg, rgba(12, 17, 24, 0.92) 0%, rgba(7, 11, 16, 0.96) 100%),
+    url('/assets/backgrounds/bg_neural_mesh.jpg') center/cover no-repeat !important;
+  border: 1px solid rgba(86, 163, 150, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(86, 163, 150, 0.25);
+}
+
+.bg-card-facility {
+  background: 
+    linear-gradient(180deg, rgba(16, 18, 24, 0.92) 0%, rgba(9, 10, 14, 0.96) 100%),
+    url('/assets/backgrounds/bg_industrial_facility.jpg') center/cover no-repeat !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Light Theme High-Contrast Card Overrides */
+:root:not(.dark) .bg-card-cad,
+:root:not(.dark) .bg-card-mesh,
+:root:not(.dark) .bg-card-facility,
+:root:not(.dark) .bg-card-topography {
+  background: #FFFFFF !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Bulletproof Light Theme Text Protection */
+:root:not(.dark) .bg-card-cad,
+:root:not(.dark) .bg-card-mesh,
+:root:not(.dark) .bg-card-facility,
+:root:not(.dark) .bg-card-topography {
+  color: #0F1218;
+}
+
+:root:not(.dark) .bg-card-cad .text-white,
+:root:not(.dark) .bg-card-mesh .text-white,
+:root:not(.dark) .bg-card-facility .text-white,
+:root:not(.dark) .bg-card-topography .text-white {
+  color: #0F1218 !important;
+}
+
+:root:not(.dark) .bg-card-cad .text-zinc-200,
+:root:not(.dark) .bg-card-cad .text-zinc-300,
+:root:not(.dark) .bg-card-mesh .text-zinc-200,
+:root:not(.dark) .bg-card-mesh .text-zinc-300,
+:root:not(.dark) .bg-card-facility .text-zinc-200,
+:root:not(.dark) .bg-card-facility .text-zinc-300,
+:root:not(.dark) .bg-card-topography .text-zinc-200,
+:root:not(.dark) .bg-card-topography .text-zinc-300 {
+  color: #475569 !important;
+}
+
+:root:not(.dark) .bg-card-cad .text-zinc-400,
+:root:not(.dark) .bg-card-mesh .text-zinc-400,
+:root:not(.dark) .bg-card-facility .text-zinc-400,
+:root:not(.dark) .bg-card-topography .text-zinc-400 {
+  color: #64748B !important;
+}
+
+:root:not(.dark) .bg-card-cad .text-blue-300,
+:root:not(.dark) .bg-card-mesh .text-blue-300 {
+  color: #1D4ED8 !important;
+}
+
+:root:not(.dark) .bg-card-mesh .text-emerald-300,
+:root:not(.dark) .bg-card-cad .text-emerald-300 {
+  color: #047857 !important;
+}
+
+:root:not(.dark) .bg-card-facility .text-amber-300,
+:root:not(.dark) .bg-card-facility .text-amber-400 {
+  color: #B45309 !important;
+}
+
+:root:not(.dark) .bg-card-topography .text-\[\#d4c5a9\] {
+  color: #8A6D3B !important;
+}
+
+/* Machined Button styling */
+.btn-machined-dark {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F4F5F8 100%);
+  color: #0F1218;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.btn-machined-dark:hover {
+  background: linear-gradient(180deg, #F8FAFC 0%, #ECEEF2 100%);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+.dark .btn-machined-dark {
+  background: linear-gradient(180deg, #1C202C 0%, #12151D 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dark .btn-machined-dark:hover {
+  background: linear-gradient(180deg, #242938 0%, #161A24 100%);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-milled-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  color: #0F1218;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .btn-milled-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Nav Rail Items */
+.nav-rail-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.dark .nav-rail-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-rail-item {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748B;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.dark .nav-rail-item {
+  color: #94A3B8;
+}
+
+.nav-rail-item:hover {
+  color: #0F1218;
+}
+
+.dark .nav-rail-item:hover {
+  color: #FFFFFF;
+}
+
+.nav-rail-item-active {
+  background: #FFFFFF;
+  color: #8A6D3B !important;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dark .nav-rail-item-active {
+  background: #1C202C;
+  color: #D4C5A9 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================================================= */
+/* 5. TYPOGRAPHY SYSTEM UTILITIES & SCALE TOKENS */
+/* ========================================================================= */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Formal Scale Tokens */
+.type-display-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.type-page-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+  .type-page-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+}
+
+.type-section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.type-card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.type-kpi-large {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.type-kpi-compact {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.type-body-primary {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 23px;
+  font-weight: 400;
+}
+
+.type-body-strong {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 23px;
+  font-weight: 600;
+}
+
+.type-body-secondary {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.type-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.type-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.type-table-heading {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.type-code-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+

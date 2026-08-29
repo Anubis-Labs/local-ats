@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none">
+  <defs>
+    <linearGradient id="subGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E1624" stop-opacity="0.96"/>
+      <stop offset="50%" stop-color="#09101C" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#05080E" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#subGrad)"/>
+  <!-- Busbars and circuit nodes -->
+  <g stroke="rgba(86,163,150,0.18)" stroke-width="1.5" fill="none">
+    <line x1="100" y1="200" x2="1340" y2="200"/>
+    <line x1="100" y1="450" x2="1340" y2="450"/>
+    <line x1="100" y1="700" x2="1340" y2="700"/>
+    <line x1="300" y1="100" x2="300" y2="800"/>
+    <line x1="600" y1="100" x2="600" y2="800"/>
+    <line x1="900" y1="100" x2="900" y2="800"/>
+    <line x1="1200" y1="100" x2="1200" y2="800"/>
+  </g>
+  <g fill="rgba(86,163,150,0.4)">
+    <circle cx="300" cy="200" r="4"/>
+    <circle cx="600" cy="200" r="4"/>
+    <circle cx="900" cy="200" r="4"/>
+    <circle cx="1200" cy="200" r="4"/>
+    <circle cx="300" cy="450" r="4"/>
+    <circle cx="600" cy="450" r="4"/>
+    <circle cx="900" cy="450" r="4"/>
+    <circle cx="1200" cy="450" r="4"/>
+    <circle cx="300" cy="700" r="4"/>
+    <circle cx="600" cy="700" r="4"/>
+    <circle cx="900" cy="700" r="4"/>
+    <circle cx="1200" cy="700" r="4"/>
+  </g>
+  <g stroke="rgba(212,197,169,0.2)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="300" y1="200" x2="600" y2="450"/>
+    <line x1="600" y1="200" x2="900" y2="450"/>
+    <line x1="900" y1="450" x2="1200" y2="700"/>
+  </g>
+</svg>
