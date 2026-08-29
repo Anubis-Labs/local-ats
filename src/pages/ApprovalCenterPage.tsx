@@ -114,77 +114,89 @@ export const ApprovalCenterPage: React.FC = () => {
 
       {/* 2. APPROVAL ITEMS LIST */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-4 max-w-7xl mx-auto w-full">
-        {approvals.map((item) => (
-          <div
-            key={item.id}
-            className="p-6 rounded-[12px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div
-                  className={cn(
-                    'w-10 h-10 rounded-[8px] flex items-center justify-center font-bold text-sm shrink-0 border',
-                    item.type === 'offer'
-                      ? 'bg-[#8A6D3B]/20 text-[#8A6D3B] dark:text-[#d4c5a9] border-[#8A6D3B]/40'
-                      : item.type === 'requisition'
-                      ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400 border-blue-500/40'
-                      : 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/40'
-                  )}
-                >
-                  {item.type === 'offer' ? <Award className="w-5 h-5" /> : item.type === 'requisition' ? <Briefcase className="w-5 h-5" /> : <DollarSign className="w-5 h-5" />}
+        {approvals.map((item) => {
+          const typeTheme = item.type === 'offer'
+            ? { borderTop: 'border-t-4 border-t-[#8A6D3B] dark:border-t-[#d4c5a9]', bg: 'bg-[#8A6D3B]/[0.02] dark:bg-[#d4c5a9]/[0.03]' }
+            : item.type === 'requisition'
+            ? { borderTop: 'border-t-4 border-t-sky-500', bg: 'bg-sky-500/[0.02] dark:bg-sky-500/[0.03]' }
+            : { borderTop: 'border-t-4 border-t-amber-500', bg: 'bg-amber-500/[0.02] dark:bg-amber-500/[0.03]' };
+
+          return (
+            <div
+              key={item.id}
+              className={cn(
+                'p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4',
+                typeTheme.borderTop,
+                typeTheme.bg
+              )}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div
+                    className={cn(
+                      'w-11 h-11 rounded-[8px] flex items-center justify-center font-bold text-sm shrink-0 border',
+                      item.type === 'offer'
+                        ? 'bg-[#8A6D3B]/20 text-[#8A6D3B] dark:text-[#d4c5a9] border-[#8A6D3B]/40'
+                        : item.type === 'requisition'
+                        ? 'bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/40'
+                        : 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/40'
+                    )}
+                  >
+                    {item.type === 'offer' ? <Award className="w-5 h-5" /> : item.type === 'requisition' ? <Briefcase className="w-5 h-5" /> : <DollarSign className="w-5 h-5" />}
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">{item.title}</h3>
+                      <Badge variant={item.type === 'offer' ? 'champagne' : item.type === 'requisition' ? 'neutral' : 'warning'} size="sm">
+                        {item.type.replace('_', ' ').toUpperCase()}
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
+                      Requester: <strong className="text-slate-800 dark:text-zinc-200">{item.requester}</strong> • {item.department} • <span className="font-mono">{item.date}</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="font-bold text-base text-slate-900 dark:text-white">{item.title}</h3>
-                    <Badge variant={item.type === 'offer' ? 'champagne' : item.type === 'requisition' ? 'indigo' : 'warning'} size="sm">
-                      {item.type.replace('_', ' ').toUpperCase()}
-                    </Badge>
-                  </div>
-                  <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
-                    Requester: <strong className="text-slate-800 dark:text-zinc-200">{item.requester}</strong> • {item.department} • {item.date}
-                  </div>
+                <Badge variant={item.status === 'approved' ? 'success' : item.status === 'rejected' ? 'destructive' : 'warning'} size="sm">
+                  {item.status.toUpperCase()}
+                </Badge>
+              </div>
+
+              <div className="p-4 rounded-[10px] bg-slate-50 dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.08] text-xs space-y-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm">{item.candidateOrJob}</span>
+                  <span className="font-bold text-base font-display text-[#8A6D3B] dark:text-[#d4c5a9] tabular-nums">{item.amountOrBand}</span>
                 </div>
+                <p className="text-slate-600 dark:text-zinc-300 leading-relaxed">{item.details}</p>
               </div>
 
-              <Badge variant={item.status === 'approved' ? 'success' : item.status === 'rejected' ? 'destructive' : 'warning'} size="sm">
-                {item.status.toUpperCase()}
-              </Badge>
+              {item.status === 'pending' && (
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-black/[0.06] dark:border-white/10">
+                  <Button
+                    size="xs"
+                    variant="destructive"
+                    onClick={() => handleAction(item.id, 'rejected', item.title)}
+                    className="font-semibold text-xs"
+                  >
+                    <XCircle className="w-3.5 h-3.5 mr-1" />
+                    <span>Request Changes</span>
+                  </Button>
+
+                  <Button
+                    size="xs"
+                    variant="champagne"
+                    onClick={() => handleAction(item.id, 'approved', item.title)}
+                    className="font-semibold text-xs"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
+                    <span>Grant Executive Sign-off</span>
+                  </Button>
+                </div>
+              )}
             </div>
-
-            <div className="p-3.5 rounded-[8px] bg-slate-50 dark:bg-black/40 border border-black/[0.06] dark:border-white/10 text-xs space-y-1">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 dark:text-white">{item.candidateOrJob}</span>
-                <span className="font-semibold text-[#8A6D3B] dark:text-[#d4c5a9] tabular-nums">{item.amountOrBand}</span>
-              </div>
-              <p className="text-slate-600 dark:text-zinc-300">{item.details}</p>
-            </div>
-
-            {item.status === 'pending' && (
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-black/[0.06] dark:border-white/10">
-                <Button
-                  size="xs"
-                  variant="destructive"
-                  onClick={() => handleAction(item.id, 'rejected', item.title)}
-                  className="font-semibold text-xs"
-                >
-                  <XCircle className="w-3.5 h-3.5 mr-1" />
-                  <span>Request Changes</span>
-                </Button>
-
-                <Button
-                  size="xs"
-                  variant="champagne"
-                  onClick={() => handleAction(item.id, 'approved', item.title)}
-                  className="font-semibold text-xs"
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-                  <span>Grant Executive Approval</span>
-                </Button>
-              </div>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </main>
     </div>
   );

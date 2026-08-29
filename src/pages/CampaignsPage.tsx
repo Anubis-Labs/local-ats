@@ -151,59 +151,76 @@ export const CampaignsPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl mx-auto">
           {/* Left Column: Campaigns List (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
-            {campaigns.map((cmp) => (
-              <div
-                key={cmp.id}
-                onClick={() => {
-                  sound.click();
-                  setSelectedCampaignId(cmp.id);
-                }}
-                className={cn(
-                  'p-5 rounded-[12px] bg-white dark:bg-[#12151D] border cursor-pointer transition-all space-y-3 specimen-chamfer shadow-sm',
-                  selectedCampaignId === cmp.id
-                    ? 'border-[#8A6D3B] dark:border-[#d4c5a9] bg-amber-50/20'
-                    : 'border-black/[0.08] dark:border-white/10 hover:border-black/20'
-                )}
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-bold text-sm text-slate-900 dark:text-white">{cmp.name}</h3>
-                    <div className="text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
-                      Discipline: <strong className="text-slate-700 dark:text-zinc-300">{cmp.discipline}</strong>
-                    </div>
-                  </div>
-                  <Badge variant={cmp.status === 'active' ? 'success' : 'neutral'} size="sm">
-                    {cmp.status.toUpperCase()}
-                  </Badge>
-                </div>
+            {campaigns.map((cmp) => {
+              const isPiping = cmp.discipline.toLowerCase().includes('piping');
+              const isMech = cmp.discipline.toLowerCase().includes('mechanical');
+              const isControls = cmp.discipline.toLowerCase().includes('controls');
 
-                <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/[0.06] dark:border-white/[0.06] text-center text-xs">
-                  <div>
-                    <div className="font-bold text-slate-900 dark:text-white">{cmp.contactedCount} / {cmp.targetCount}</div>
-                    <div className="text-[10px] text-slate-400">Contacted</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
-                      {cmp.contactedCount > 0 ? `${Math.round((cmp.repliedCount / cmp.contactedCount) * 100)}%` : '0%'}
+              const borderTop = isPiping
+                ? 'border-t-4 border-t-amber-500'
+                : isMech
+                ? 'border-t-4 border-t-teal-500'
+                : isControls
+                ? 'border-t-4 border-t-indigo-500'
+                : 'border-t-4 border-t-sky-500';
+
+              const replyPct = cmp.contactedCount > 0 ? Math.round((cmp.repliedCount / cmp.contactedCount) * 100) : 0;
+
+              return (
+                <div
+                  key={cmp.id}
+                  onClick={() => {
+                    sound.click();
+                    setSelectedCampaignId(cmp.id);
+                  }}
+                  className={cn(
+                    'p-5 rounded-[12px] bg-white dark:bg-[#12151D] border cursor-pointer transition-all space-y-3 specimen-chamfer shadow-sm',
+                    borderTop,
+                    selectedCampaignId === cmp.id
+                      ? 'border-[#8A6D3B] dark:border-[#d4c5a9] ring-2 ring-[#8A6D3B]/20 dark:ring-[#d4c5a9]/20 bg-[#8A6D3B]/[0.03] dark:bg-[#d4c5a9]/[0.04]'
+                      : 'border-black/[0.08] dark:border-white/10 hover:border-black/20'
+                  )}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">{cmp.name}</h3>
+                      <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
+                        Discipline: <strong className="text-slate-800 dark:text-zinc-200">{cmp.discipline}</strong>
+                      </div>
                     </div>
-                    <div className="text-[10px] text-slate-400">Reply Rate</div>
+                    <Badge variant={cmp.status === 'active' ? 'success' : 'neutral'} size="sm">
+                      {cmp.status.toUpperCase()}
+                    </Badge>
                   </div>
-                  <div>
-                    <div className="font-bold text-[#8A6D3B] dark:text-[#d4c5a9]">{cmp.positiveConversions}</div>
-                    <div className="text-[10px] text-slate-400">In Pipeline</div>
+
+                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/[0.06] dark:border-white/[0.06] text-center text-xs">
+                    <div className="p-2 rounded-[8px] bg-slate-50 dark:bg-black/30 border border-black/[0.04] dark:border-white/[0.04]">
+                      <div className="font-bold font-display text-sm text-slate-900 dark:text-white">{cmp.contactedCount} / {cmp.targetCount}</div>
+                      <div className="text-[10px] text-slate-500">Contacted</div>
+                    </div>
+                    <div className="p-2 rounded-[8px] bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20">
+                      <div className="font-bold font-display text-sm text-emerald-600 dark:text-emerald-400 tabular-nums">
+                        {replyPct}%
+                      </div>
+                      <div className="text-[10px] text-emerald-700 dark:text-emerald-400">Reply Rate</div>
+                    </div>
+                    <div className="p-2 rounded-[8px] bg-[#8A6D3B]/5 dark:bg-[#d4c5a9]/5 border border-[#8A6D3B]/20">
+                      <div className="font-bold font-display text-sm text-[#8A6D3B] dark:text-[#d4c5a9]">{cmp.positiveConversions}</div>
+                      <div className="text-[10px] text-[#8A6D3B] dark:text-[#d4c5a9]">In Pipeline</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Right Column: Sequence Steps Detail (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="p-6 rounded-[12px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4">
+            <div className="p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-black/[0.08] dark:border-white/[0.08]">
                 <div>
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">{selectedCampaign.name}</h3>
-                  <div className="text-xs text-slate-500 dark:text-zinc-400">
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">{selectedCampaign.name}</h3>
+                  <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
                     {selectedCampaign.steps.length}-Step Multi-Channel Outbound Sequence
                   </div>
                 </div>
@@ -212,9 +229,9 @@ export const CampaignsPage: React.FC = () => {
                   size="xs"
                   variant="machined"
                   onClick={() => handleToggleCampaign(selectedCampaign.id)}
-                  className="gap-1 text-xs"
+                  className="gap-1 text-xs font-semibold"
                 >
-                  {selectedCampaign.status === 'active' ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                  {selectedCampaign.status === 'active' ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
                   <span>{selectedCampaign.status === 'active' ? 'Pause Sequence' : 'Resume Sequence'}</span>
                 </Button>
               </div>
@@ -223,13 +240,13 @@ export const CampaignsPage: React.FC = () => {
                 {selectedCampaign.steps.map((st) => (
                   <div
                     key={st.stepNum}
-                    className="p-4 rounded-[8px] bg-slate-50 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1.5 text-xs"
+                    className="p-4 rounded-[10px] bg-slate-50 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1.5 text-xs border-l-4 border-l-[#8A6D3B] dark:border-l-[#d4c5a9]"
                   >
                     <div className="flex items-center justify-between font-bold">
-                      <span className="text-slate-900 dark:text-white">Step {st.stepNum}: {st.channel}</span>
+                      <span className="text-slate-900 dark:text-white text-sm font-display">Step {st.stepNum}: {st.channel}</span>
                       <Badge variant="champagne" size="sm">{st.delay}</Badge>
                     </div>
-                    <div className="text-slate-700 dark:text-zinc-300 font-medium">Subject: {st.subject}</div>
+                    <div className="text-slate-700 dark:text-zinc-300 font-medium">Subject: "{st.subject}"</div>
                   </div>
                 ))}
               </div>

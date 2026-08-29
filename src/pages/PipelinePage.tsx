@@ -297,55 +297,73 @@ export const PipelinePage: React.FC = () => {
                         Empty stage
                       </div>
                     ) : (
-                      stageCandidates.map((c) => (
-                        <div
-                          key={c.id}
-                          draggable
-                          onDragStart={() => handleDragStart(c.id)}
-                          onClick={() => {
-                            sound.click();
-                            setInspectCandidate(c);
-                          }}
-                          className={cn(
-                            'p-3.5 rounded-[9px] bg-white dark:bg-[#12151D]/90 border border-black/[0.08] dark:border-white/10 hover:border-black/20 dark:hover:border-white/25 transition-all cursor-grab active:cursor-grabbing shadow-xs space-y-2 select-none group',
-                            inspectCandidate?.id === c.id && 'ring-2 ring-[#8A6D3B] dark:ring-[#d4c5a9] border-transparent'
-                          )}
-                        >
-                          <div className="flex items-start justify-between gap-2">
-                            <div>
-                              <div className="font-bold text-slate-900 dark:text-white text-xs leading-tight">
-                                {c.name}
+                      stageCandidates.map((c) => {
+                        const isPiping = c.currentRole.toLowerCase().includes('piping');
+                        const isMech = c.currentRole.toLowerCase().includes('mechanical') || c.currentRole.toLowerCase().includes('hvac');
+                        const isControls = c.currentRole.toLowerCase().includes('controls') || c.currentRole.toLowerCase().includes('cost');
+                        const isCivil = c.currentRole.toLowerCase().includes('civil') || c.currentRole.toLowerCase().includes('structural');
+
+                        const leftBorder = isPiping
+                          ? 'border-l-4 border-l-amber-500'
+                          : isMech
+                          ? 'border-l-4 border-l-teal-500'
+                          : isControls
+                          ? 'border-l-4 border-l-indigo-500'
+                          : isCivil
+                          ? 'border-l-4 border-l-rose-500'
+                          : 'border-l-4 border-l-sky-500';
+
+                        return (
+                          <div
+                            key={c.id}
+                            draggable
+                            onDragStart={() => handleDragStart(c.id)}
+                            onClick={() => {
+                              sound.click();
+                              setInspectCandidate(c);
+                            }}
+                            className={cn(
+                              'p-3.5 rounded-[9px] bg-white dark:bg-[#12151D]/90 border border-black/[0.08] dark:border-white/10 hover:border-black/20 dark:hover:border-white/25 transition-all cursor-grab active:cursor-grabbing shadow-xs space-y-2 select-none group',
+                              leftBorder,
+                              inspectCandidate?.id === c.id && 'ring-2 ring-[#8A6D3B] dark:ring-[#d4c5a9] border-transparent'
+                            )}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <div className="font-bold text-slate-900 dark:text-white text-xs leading-tight">
+                                  {c.name}
+                                </div>
+                                <div className="text-[11px] text-slate-600 dark:text-zinc-300 mt-0.5 font-medium">
+                                  {c.currentRole}
+                                </div>
                               </div>
-                              <div className="text-[11px] text-slate-600 dark:text-zinc-300 mt-0.5 font-medium">
-                                {c.currentRole}
-                              </div>
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#8A6D3B]/10 dark:bg-[#d4c5a9]/10 text-[#8A6D3B] dark:text-[#d4c5a9] border border-[#8A6D3B]/20 tabular-nums">
+                                {c.rating >= 4 ? '98% FIT' : '84% FIT'}
+                              </span>
                             </div>
-                            <span className="text-[11px] font-semibold text-[#8A6D3B] dark:text-[#d4c5a9] tabular-nums">
-                              {c.rating >= 4 ? '98%' : '84%'}
-                            </span>
-                          </div>
 
-                          <div className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium truncate">
-                            {c.currentCompany} ({c.experienceYears}y)
-                          </div>
+                            <div className="text-[10px] text-slate-500 dark:text-zinc-400 font-medium truncate">
+                              {c.currentCompany} ({c.experienceYears}y)
+                            </div>
 
-                          {/* Quick Advance & Tag Bar */}
-                          <div className="flex items-center justify-between pt-1 border-t border-black/[0.06] dark:border-white/10 text-[10px]">
-                            <span className="text-slate-500 dark:text-zinc-400">{c.location}</span>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                advanceStage(c.id, c.stage);
-                              }}
-                              className="px-2 py-0.5 rounded bg-slate-100 dark:bg-black/40 hover:bg-[#8A6D3B] hover:text-white dark:hover:bg-[#d4c5a9] dark:hover:text-black border border-black/10 dark:border-white/10 text-slate-800 dark:text-white font-semibold transition-colors flex items-center gap-1"
-                              title="Advance to next stage"
-                            >
-                              <span>Next</span>
-                              <ChevronRight className="w-3 h-3" />
-                            </button>
+                            {/* Quick Advance & Tag Bar */}
+                            <div className="flex items-center justify-between pt-1 border-t border-black/[0.06] dark:border-white/10 text-[10px]">
+                              <span className="text-slate-500 dark:text-zinc-400">{c.location}</span>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  advanceStage(c.id, c.stage);
+                                }}
+                                className="px-2 py-0.5 rounded bg-slate-100 dark:bg-black/40 hover:bg-[#8A6D3B] hover:text-white dark:hover:bg-[#d4c5a9] dark:hover:text-black border border-black/10 dark:border-white/10 text-slate-800 dark:text-white font-semibold transition-colors flex items-center gap-1"
+                                title="Advance to next stage"
+                              >
+                                <span>Next</span>
+                                <ChevronRight className="w-3 h-3" />
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        );
+                      })
                     )}
                   </div>
                 </div>

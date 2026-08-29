@@ -158,54 +158,76 @@ export const TalentPoolPage: React.FC = () => {
       {/* ========================================================================= */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-4 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filtered.map((c, idx) => (
-            <div
-              key={c.id}
-              onClick={() => {
-                sound.click();
-                navigate(`/candidates/${c.id}`);
-              }}
-              className={cn(
-                'rounded-[12px] p-6 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer bg-white dark:bg-[#12151D]'
-              )}
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={c.avatar}
-                    alt={c.name}
-                    className="w-12 h-12 rounded-[9px] object-cover border border-black/10 dark:border-white/15 shrink-0"
-                  />
-                  <div>
-                    <h3 className="font-bold text-base text-slate-900 dark:text-white">{c.name}</h3>
-                    <div className="text-xs text-slate-600 dark:text-zinc-300 mt-0.5">{c.currentRole}</div>
+          {filtered.map((c) => {
+            const isPiping = c.currentRole.toLowerCase().includes('piping');
+            const isMech = c.currentRole.toLowerCase().includes('mechanical') || c.currentRole.toLowerCase().includes('hvac');
+            const isControls = c.currentRole.toLowerCase().includes('controls') || c.currentRole.toLowerCase().includes('cost');
+
+            const deptTheme = isPiping
+              ? { borderTop: 'border-t-4 border-t-amber-500', bg: 'bg-amber-500/[0.02] dark:bg-amber-500/[0.03]' }
+              : isMech
+              ? { borderTop: 'border-t-4 border-t-teal-500', bg: 'bg-teal-500/[0.02] dark:bg-teal-500/[0.03]' }
+              : isControls
+              ? { borderTop: 'border-t-4 border-t-indigo-500', bg: 'bg-indigo-500/[0.02] dark:bg-indigo-500/[0.03]' }
+              : { borderTop: 'border-t-4 border-t-sky-500', bg: 'bg-sky-500/[0.02] dark:bg-sky-500/[0.03]' };
+
+            return (
+              <div
+                key={c.id}
+                onClick={() => {
+                  sound.click();
+                  navigate(`/candidates/${c.id}`);
+                }}
+                className={cn(
+                  'rounded-[14px] p-5 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer bg-white dark:bg-[#12151D] group',
+                  deptTheme.borderTop,
+                  deptTheme.bg
+                )}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={c.avatar}
+                      alt={c.name}
+                      className="w-12 h-12 rounded-[8px] object-cover border border-black/10 dark:border-white/15 shrink-0"
+                    />
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-base text-slate-900 dark:text-white font-display group-hover:text-[#8A6D3B] dark:group-hover:text-[#d4c5a9] transition-colors">{c.name}</h3>
+                        {(c.name.includes('P.Eng.') || c.name.includes('CET') || c.parsedResume?.certifications?.some(cert => cert.isVerified)) && (
+                          <Badge variant="champagne" size="sm">STAMPED</Badge>
+                        )}
+                      </div>
+                      <div className="text-xs text-slate-600 dark:text-zinc-300 font-medium mt-0.5">{c.currentRole}</div>
+                    </div>
                   </div>
+                  <Badge variant={c.stage === 'archived' ? 'neutral' : 'success'} size="sm">
+                    {c.stage === 'archived' ? 'Silver Medalist' : 'Bench Active'}
+                  </Badge>
                 </div>
-                <Badge variant={c.stage === 'archived' ? 'neutral' : 'champagne'} size="sm">
-                  {c.stage === 'archived' ? 'Silver Medalist' : 'Bench Active'}
-                </Badge>
-              </div>
 
-              <div className="text-xs text-slate-600 dark:text-zinc-300 line-clamp-2 italic">
-                "{c.parsedResume.summary}"
-              </div>
+                <div className="text-xs text-slate-600 dark:text-zinc-300 line-clamp-2 italic leading-relaxed bg-slate-50 dark:bg-black/20 p-2.5 rounded-[6px] border border-black/[0.04] dark:border-white/[0.04]">
+                  "{c.parsedResume.summary}"
+                </div>
 
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {c.tags.slice(0, 4).map((t) => (
-                  <span key={t} className="px-2 py-0.5 rounded-[4px] bg-slate-100 dark:bg-white/[0.05] border border-black/10 dark:border-white/10 text-[10px] font-semibold text-slate-800 dark:text-zinc-200">
-                    {t}
+                <div className="flex flex-wrap gap-1.5">
+                  {c.tags.slice(0, 4).map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded-[4px] bg-slate-100 dark:bg-white/[0.05] border border-black/10 dark:border-white/10 text-[10px] font-semibold text-slate-800 dark:text-zinc-200">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-black/[0.06] dark:border-white/10 text-xs">
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">{c.location} • <strong className="text-slate-700 dark:text-zinc-300">{c.experienceYears} yrs exp</strong></span>
+                  <span className="font-semibold text-[#8A6D3B] dark:text-[#d4c5a9] flex items-center gap-1">
+                    <span>Candidate Dossier</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </span>
-                ))}
+                </div>
               </div>
-
-              <div className="flex items-center justify-between pt-2 border-t border-black/[0.06] dark:border-white/10 text-xs">
-                <span className="text-slate-500 dark:text-zinc-400">{c.location} • {c.experienceYears}y</span>
-                <span className="font-semibold text-slate-800 dark:text-zinc-200 flex items-center gap-1 group-hover:text-[#8A6D3B] dark:group-hover:text-[#d4c5a9]">
-                  Fast-Track Requisition <ChevronRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
 
