@@ -159,18 +159,6 @@ export const TalentPoolPage: React.FC = () => {
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-4 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map((c) => {
-            const isPiping = c.currentRole.toLowerCase().includes('piping');
-            const isMech = c.currentRole.toLowerCase().includes('mechanical') || c.currentRole.toLowerCase().includes('hvac');
-            const isControls = c.currentRole.toLowerCase().includes('controls') || c.currentRole.toLowerCase().includes('cost');
-
-            const deptTheme = isPiping
-              ? { borderTop: 'border-t-4 border-t-amber-500', bg: 'bg-amber-500/[0.02] dark:bg-amber-500/[0.03]' }
-              : isMech
-              ? { borderTop: 'border-t-4 border-t-teal-500', bg: 'bg-teal-500/[0.02] dark:bg-teal-500/[0.03]' }
-              : isControls
-              ? { borderTop: 'border-t-4 border-t-indigo-500', bg: 'bg-indigo-500/[0.02] dark:bg-indigo-500/[0.03]' }
-              : { borderTop: 'border-t-4 border-t-sky-500', bg: 'bg-sky-500/[0.02] dark:bg-sky-500/[0.03]' };
-
             return (
               <div
                 key={c.id}
@@ -178,11 +166,7 @@ export const TalentPoolPage: React.FC = () => {
                   sound.click();
                   navigate(`/candidates/${c.id}`);
                 }}
-                className={cn(
-                  'rounded-[14px] p-5 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer bg-white dark:bg-[#12151D] group',
-                  deptTheme.borderTop,
-                  deptTheme.bg
-                )}
+                className="rounded-[14px] p-5 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer bg-white dark:bg-[#12151D] group"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">

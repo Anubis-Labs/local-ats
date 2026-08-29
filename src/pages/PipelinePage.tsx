@@ -305,21 +305,6 @@ export const PipelinePage: React.FC = () => {
                       </div>
                     ) : (
                       stageCandidates.map((c) => {
-                        const isPiping = c.currentRole.toLowerCase().includes('piping');
-                        const isMech = c.currentRole.toLowerCase().includes('mechanical') || c.currentRole.toLowerCase().includes('hvac');
-                        const isControls = c.currentRole.toLowerCase().includes('controls') || c.currentRole.toLowerCase().includes('cost');
-                        const isCivil = c.currentRole.toLowerCase().includes('civil') || c.currentRole.toLowerCase().includes('structural');
-
-                        const leftBorder = isPiping
-                          ? 'border-l-4 border-l-amber-500'
-                          : isMech
-                          ? 'border-l-4 border-l-teal-500'
-                          : isControls
-                          ? 'border-l-4 border-l-indigo-500'
-                          : isCivil
-                          ? 'border-l-4 border-l-rose-500'
-                          : 'border-l-4 border-l-sky-500';
-
                         return (
                           <div
                             key={c.id}
@@ -331,7 +316,6 @@ export const PipelinePage: React.FC = () => {
                             }}
                             className={cn(
                               'p-3.5 rounded-[9px] bg-white dark:bg-[#12151D]/90 border border-black/[0.08] dark:border-white/10 hover:border-black/20 dark:hover:border-white/25 transition-all cursor-grab active:cursor-grabbing shadow-xs space-y-2 select-none group',
-                              leftBorder,
                               inspectCandidate?.id === c.id && 'ring-2 ring-[#8A6D3B] dark:ring-[#d4c5a9] border-transparent'
                             )}
                           >

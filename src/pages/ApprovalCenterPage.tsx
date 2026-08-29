@@ -117,34 +117,15 @@ export const ApprovalCenterPage: React.FC = () => {
       {/* 2. APPROVAL ITEMS LIST */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-4 max-w-7xl mx-auto w-full">
         {approvals.map((item) => {
-          const typeTheme = item.type === 'offer'
-            ? { borderTop: 'border-t-4 border-t-[#8A6D3B] dark:border-t-[#d4c5a9]', bg: 'bg-[#8A6D3B]/[0.02] dark:bg-[#d4c5a9]/[0.03]' }
-            : item.type === 'requisition'
-            ? { borderTop: 'border-t-4 border-t-sky-500', bg: 'bg-sky-500/[0.02] dark:bg-sky-500/[0.03]' }
-            : { borderTop: 'border-t-4 border-t-amber-500', bg: 'bg-amber-500/[0.02] dark:bg-amber-500/[0.03]' };
-
           return (
             <div
               key={item.id}
-              className={cn(
-                'p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4',
-                typeTheme.borderTop,
-                typeTheme.bg
-              )}
+              className="p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-4"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3.5">
-                  <div
-                    className={cn(
-                      'w-11 h-11 rounded-[8px] flex items-center justify-center font-bold text-sm shrink-0 border',
-                      item.type === 'offer'
-                        ? 'bg-[#8A6D3B]/20 text-[#8A6D3B] dark:text-[#d4c5a9] border-[#8A6D3B]/40'
-                        : item.type === 'requisition'
-                        ? 'bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/40'
-                        : 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/40'
-                    )}
-                  >
-                    {item.type === 'offer' ? <Award className="w-5 h-5" /> : item.type === 'requisition' ? <Briefcase className="w-5 h-5" /> : <DollarSign className="w-5 h-5" />}
+                  <div className="w-10 h-10 rounded-[7px] bg-slate-200/80 dark:bg-white/[0.06] border border-black/10 dark:border-white/10 flex items-center justify-center font-bold text-slate-800 dark:text-zinc-200 shrink-0">
+                    {item.type === 'offer' ? <Award className="w-4 h-4 text-[#8A6D3B] dark:text-[#d4c5a9]" /> : item.type === 'requisition' ? <Briefcase className="w-4 h-4 text-slate-600 dark:text-zinc-300" /> : <DollarSign className="w-4 h-4 text-slate-600 dark:text-zinc-300" />}
                   </div>
 
                   <div>

@@ -190,33 +190,23 @@ export const SiteReadinessPassportPage: React.FC = () => {
       {/* 2. PASSPORT CARDS LIST */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full space-y-6">
         {filteredPassports.map((p) => {
-          const statusTheme = p.overallStatus === 'READY'
-            ? { borderTop: 'border-t-4 border-t-emerald-500', bg: 'bg-emerald-500/[0.01] dark:bg-emerald-500/[0.03]', badge: <Badge variant="success" size="sm" className="font-bold">READY FOR DEPLOYMENT</Badge> }
-            : p.overallStatus === 'READY_WITH_CONDITIONS'
-            ? { borderTop: 'border-t-4 border-t-amber-500', bg: 'bg-amber-500/[0.01] dark:bg-amber-500/[0.03]', badge: <Badge variant="warning" size="sm" className="font-bold">CONDITIONAL CLEARANCE</Badge> }
-            : { borderTop: 'border-t-4 border-t-rose-500', bg: 'bg-rose-500/[0.01] dark:bg-rose-500/[0.03]', badge: <Badge variant="destructive" size="sm" className="font-bold">DEPLOYMENT BLOCKED</Badge> };
-
           return (
             <div
               key={p.id}
-              className={cn(
-                'p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-6',
-                statusTheme.borderTop,
-                statusTheme.bg
-              )}
+              className="p-6 rounded-[14px] bg-white dark:bg-[#12151D] border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer space-y-6"
             >
               {/* Header / Identity Row */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-black/[0.06] dark:border-white/[0.06]">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-[8px] bg-gradient-to-br from-[#8A6D3B]/20 to-[#8A6D3B]/5 dark:from-[#d4c5a9]/20 dark:to-[#d4c5a9]/5 border border-[#8A6D3B]/30 dark:border-[#d4c5a9]/30 flex items-center justify-center font-bold text-sm text-[#8A6D3B] dark:text-[#d4c5a9] shrink-0">
+                  <div className="w-10 h-10 rounded-[7px] bg-slate-200/80 dark:bg-white/[0.06] border border-black/10 dark:border-white/10 flex items-center justify-center font-bold text-xs text-slate-800 dark:text-zinc-200 shrink-0">
                     {p.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="font-bold text-lg text-slate-900 dark:text-white font-display">{p.name}</h3>
-                      {statusTheme.badge}
+                      <h3 className="font-bold text-base text-slate-900 dark:text-white font-display">{p.name}</h3>
+                      {getStatusBadge(p.overallStatus)}
                     </div>
-                    <div className="text-xs text-slate-600 dark:text-zinc-400 mt-1">
+                    <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
                       Discipline: <strong className="text-slate-800 dark:text-zinc-200">{p.discipline}</strong> • Target Project:{' '}
                       <strong className="text-[#8A6D3B] dark:text-[#d4c5a9]">{p.targetProject}</strong>
                     </div>

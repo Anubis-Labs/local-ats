@@ -154,18 +154,6 @@ export const CampaignsPage: React.FC = () => {
           {/* Left Column: Campaigns List (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
             {campaigns.map((cmp) => {
-              const isPiping = cmp.discipline.toLowerCase().includes('piping');
-              const isMech = cmp.discipline.toLowerCase().includes('mechanical');
-              const isControls = cmp.discipline.toLowerCase().includes('controls');
-
-              const borderTop = isPiping
-                ? 'border-t-4 border-t-amber-500'
-                : isMech
-                ? 'border-t-4 border-t-teal-500'
-                : isControls
-                ? 'border-t-4 border-t-indigo-500'
-                : 'border-t-4 border-t-sky-500';
-
               const replyPct = cmp.contactedCount > 0 ? Math.round((cmp.repliedCount / cmp.contactedCount) * 100) : 0;
 
               return (
@@ -177,9 +165,8 @@ export const CampaignsPage: React.FC = () => {
                   }}
                   className={cn(
                     'p-5 rounded-[12px] bg-white dark:bg-[#12151D] border cursor-pointer transition-all space-y-3 specimen-chamfer shadow-sm',
-                    borderTop,
                     selectedCampaignId === cmp.id
-                      ? 'border-[#8A6D3B] dark:border-[#d4c5a9] ring-2 ring-[#8A6D3B]/20 dark:ring-[#d4c5a9]/20 bg-[#8A6D3B]/[0.03] dark:bg-[#d4c5a9]/[0.04]'
+                      ? 'border-[#8A6D3B] dark:border-[#d4c5a9] ring-1 ring-[#8A6D3B]/30'
                       : 'border-black/[0.08] dark:border-white/10 hover:border-black/20'
                   )}
                 >
@@ -200,15 +187,15 @@ export const CampaignsPage: React.FC = () => {
                       <div className="font-bold font-display text-sm text-slate-900 dark:text-white">{cmp.contactedCount} / {cmp.targetCount}</div>
                       <div className="text-[10px] text-slate-500">Contacted</div>
                     </div>
-                    <div className="p-2 rounded-[8px] bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20">
+                    <div className="p-2 rounded-[8px] bg-slate-50 dark:bg-black/30 border border-black/[0.04] dark:border-white/[0.04]">
                       <div className="font-bold font-display text-sm text-emerald-600 dark:text-emerald-400 tabular-nums">
                         {replyPct}%
                       </div>
-                      <div className="text-[10px] text-emerald-700 dark:text-emerald-400">Reply Rate</div>
+                      <div className="text-[10px] text-slate-500">Reply Rate</div>
                     </div>
-                    <div className="p-2 rounded-[8px] bg-[#8A6D3B]/5 dark:bg-[#d4c5a9]/5 border border-[#8A6D3B]/20">
+                    <div className="p-2 rounded-[8px] bg-slate-50 dark:bg-black/30 border border-black/[0.04] dark:border-white/[0.04]">
                       <div className="font-bold font-display text-sm text-[#8A6D3B] dark:text-[#d4c5a9]">{cmp.positiveConversions}</div>
-                      <div className="text-[10px] text-[#8A6D3B] dark:text-[#d4c5a9]">In Pipeline</div>
+                      <div className="text-[10px] text-slate-500">In Pipeline</div>
                     </div>
                   </div>
                 </div>
@@ -242,7 +229,7 @@ export const CampaignsPage: React.FC = () => {
                 {selectedCampaign.steps.map((st) => (
                   <div
                     key={st.stepNum}
-                    className="p-4 rounded-[10px] bg-slate-50 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1.5 text-xs border-l-4 border-l-[#8A6D3B] dark:border-l-[#d4c5a9]"
+                    className="p-4 rounded-[10px] bg-slate-50 dark:bg-black/30 border border-black/10 dark:border-white/10 space-y-1.5 text-xs"
                   >
                     <div className="flex items-center justify-between font-bold">
                       <span className="text-slate-900 dark:text-white text-sm font-display">Step {st.stepNum}: {st.channel}</span>
