@@ -91,11 +91,15 @@ export function App() {
                   <Route path="/interviews" element={<InterviewsPage />} />
                   <Route path="/tasks" element={<TasksPage />} />
                   <Route path="/talent" element={<TalentPoolPage />} />
+                  <Route path="/talent-pools" element={<TalentPoolPage />} />
                   <Route path="/import" element={<ImportPage />} />
                   <Route path="/team-builder" element={<ProjectTeamBuilderPage />} />
                   <Route path="/scenarios" element={<AwardScenariosPage />} />
                   <Route path="/readiness" element={<SiteReadinessPassportPage />} />
+                  <Route path="/site-readiness" element={<SiteReadinessPassportPage />} />
                   <Route path="/cost-calculator" element={<EngagementCostCalculatorPage />} />
+                  <Route path="/calculator" element={<EngagementCostCalculatorPage />} />
+                  <Route path="/knowledge-graph" element={<RelationshipsPage />} />
                   <Route path="/reports" element={<ReportsPage />} />
                   <Route path="/team" element={<TeamPage />} />
                   <Route path="/templates" element={<TemplatesPage />} />

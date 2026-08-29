@@ -318,6 +318,17 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   maxWidth = 'md'
 }) => {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const maxWidthClasses = {
@@ -331,9 +342,10 @@ export const Modal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity animate-in fade-in"
+        className="fixed inset-0 bg-black/75 dark:bg-black/85 backdrop-blur-md transition-opacity animate-in fade-in"
       />
       <div
+        onClick={(e) => e.stopPropagation()}
         className={cn(
           'relative w-full rounded-[14px] bg-white dark:bg-[#12151D] border border-black/10 dark:border-white/15 p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 z-10 specimen-chamfer specimen-chamfer-champagne',
           maxWidthClasses[maxWidth]
@@ -341,7 +353,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         <div className="flex items-center justify-between pb-3 border-b border-black/[0.08] dark:border-white/10">
           <div>
-            <h3 className="font-bold text-base text-slate-900 dark:text-white">{title}</h3>
+            <h3 className="type-card-title text-slate-900 dark:text-white">{title}</h3>
             {subtitle && <div className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">{subtitle}</div>}
           </div>
           <button
