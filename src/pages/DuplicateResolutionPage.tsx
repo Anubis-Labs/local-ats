@@ -15,6 +15,7 @@ import {
 import { Badge, Button, Card, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireMergeShimmer } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 interface DuplicatePair {
@@ -78,6 +79,7 @@ export const DuplicateResolutionPage: React.FC = () => {
 
   const handleMerge = (pairId: string) => {
     sound.chime();
+    fireMergeShimmer();
     setDuplicatePairs((prev) => prev.filter((p) => p.id !== pairId));
     toast('Records Merged', 'Successfully consolidated applications, work histories, and notes into primary dossier.', 'success');
   };

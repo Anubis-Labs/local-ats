@@ -17,6 +17,7 @@ import {
 import { Badge, Button, Card, Input, Modal, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireMicroSparkles } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 interface Campaign {
@@ -97,6 +98,7 @@ export const CampaignsPage: React.FC = () => {
     setCampaigns([newCmp, ...campaigns]);
     setSelectedCampaignId(newCmp.id);
     setShowLaunchModal(false);
+    fireMicroSparkles();
     setNewCampaignName('');
     toast('Campaign Launched', `Outreach sequence initiated for "${newCampaignName}".`, 'success');
   };

@@ -20,6 +20,7 @@ import {
 import { Badge, Button, Input, Modal, Card, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireFireworks, fireStampPulse } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 interface TeamSlot {
@@ -105,6 +106,11 @@ export const ProjectTeamBuilderPage: React.FC = () => {
 
   const handleToggleLock = (slotId: string) => {
     sound.pop();
+    const target = teamSlots.find((s) => s.id === slotId);
+    const willBeLocked = target?.assignedCandidate?.status !== 'locked';
+    if (willBeLocked) {
+      fireStampPulse();
+    }
     setTeamSlots((prev) =>
       prev.map((s) => {
         if (s.id !== slotId || !s.assignedCandidate) return s;
@@ -122,6 +128,7 @@ export const ProjectTeamBuilderPage: React.FC = () => {
 
   const handleExportRoster = () => {
     sound.chime();
+    fireFireworks();
     toast('Mobilization Roster Exported', 'Generated EPCM Project Mobilization Pack (PDF & CSV).', 'success');
   };
 

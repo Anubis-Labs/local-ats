@@ -45,6 +45,7 @@ import { CompetencyRadarChart } from '../components/common/VisualCharts';
 import { useToast } from '../context/ToastContext';
 import { useAssistant } from '../context/AssistantContext';
 import { sound } from '../utils/sound';
+import { fireHiredConfetti, fireStampPulse } from '../utils/confetti';
 
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
@@ -102,9 +103,11 @@ export const CandidateDetailPage: React.FC = () => {
       </div>
     );
   }
-
   const handleStageChange = async (newStage: PipelineStageId) => {
     sound.latch();
+    if (newStage === 'hired' || newStage === 'offer') {
+      fireHiredConfetti();
+    }
     setStageSelect(newStage);
     const updated = await candidateService.updateStage(candidate.id, newStage);
     setCandidate(updated);
@@ -126,6 +129,7 @@ export const CandidateDetailPage: React.FC = () => {
   const handleSubmitScorecard = (e: React.FormEvent) => {
     e.preventDefault();
     sound.chime();
+    fireStampPulse();
     setShowScorecardModal(false);
     toast(
       'Scorecard Submitted',
@@ -137,6 +141,7 @@ export const CandidateDetailPage: React.FC = () => {
   const handleExtendOffer = (e: React.FormEvent) => {
     e.preventDefault();
     sound.chime();
+    fireHiredConfetti();
     setShowOfferModal(false);
     handleStageChange('offer');
     toast(

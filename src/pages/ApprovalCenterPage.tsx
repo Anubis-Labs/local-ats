@@ -17,6 +17,7 @@ import {
 import { Badge, Button, Input, Modal, Textarea, Card, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireStampPulse } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 interface ApprovalItem {
@@ -78,6 +79,7 @@ export const ApprovalCenterPage: React.FC = () => {
   const handleAction = (id: string, newStatus: 'approved' | 'rejected', title: string) => {
     if (newStatus === 'approved') {
       sound.chime();
+      fireStampPulse();
       toast('Sign-off Approved', `Executive approval granted for: ${title}.`, 'success');
     } else {
       sound.latch();

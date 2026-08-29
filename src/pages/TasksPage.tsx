@@ -17,6 +17,7 @@ import { Task } from '../types/task';
 import { Badge, Button, Card, Input, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireMicroSparkles } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 export const TasksPage: React.FC = () => {
@@ -40,6 +41,9 @@ export const TasksPage: React.FC = () => {
   const handleToggleComplete = async (taskId: string) => {
     sound.latch();
     const updated = await taskService.toggleTaskCompletion(taskId);
+    if (updated.completed) {
+      fireMicroSparkles();
+    }
     setTasks((prev) => prev.map((t) => (t.id === taskId ? updated : t)));
     toast(updated.completed ? 'Task Completed' : 'Task Reopened', updated.title, 'info');
   };
@@ -49,6 +53,7 @@ export const TasksPage: React.FC = () => {
     if (!newTaskTitle.trim()) return;
 
     sound.click();
+    fireMicroSparkles();
     const created = await taskService.createTask({
       title: newTaskTitle,
       description: newTaskDue,

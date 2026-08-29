@@ -12,6 +12,7 @@ import { Job } from '../types/job';
 import { Badge, Button, Input, Textarea, Modal, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireStampPulse } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 export const JobsPage: React.FC = () => {
@@ -92,6 +93,7 @@ export const JobsPage: React.FC = () => {
 
     setJobs([created, ...jobs]);
     setShowCreateModal(false);
+    fireStampPulse();
     setNewTitle('');
     setNewDescription('');
     toast('Requisition Created', `Published "${created.title}" with 2 auto-configured requirements.`, 'success');

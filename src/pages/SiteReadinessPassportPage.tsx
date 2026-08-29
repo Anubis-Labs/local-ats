@@ -19,6 +19,7 @@ import {
 import { Badge, Button, Input, Card, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireStampPulse } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 interface CandidatePassport {
@@ -120,6 +121,7 @@ export const SiteReadinessPassportPage: React.FC = () => {
 
   const handleExportPassport = (name: string) => {
     sound.chime();
+    fireStampPulse();
     toast('Passport Exported', `Generated Site Readiness Clearance PDF for ${name}.`, 'success');
   };
 

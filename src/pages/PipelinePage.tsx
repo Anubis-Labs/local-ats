@@ -36,6 +36,7 @@ import { Job } from '../types/job';
 import { Badge, Button, Input, Card, cn } from '../components/ui';
 import { useToast } from '../context/ToastContext';
 import { sound } from '../utils/sound';
+import { fireHiredConfetti } from '../utils/confetti';
 import { AbstractVectorArt } from '../components/common/AbstractVectorArt';
 
 export const PipelinePage: React.FC = () => {
@@ -105,6 +106,9 @@ export const PipelinePage: React.FC = () => {
     if (!targetCandidate || targetCandidate.stage === stageId) return;
 
     sound.latch();
+    if (stageId === 'offer' || stageId === 'hired') {
+      fireHiredConfetti();
+    }
     setCandidates((prev) =>
       prev.map((c) => (c.id === candidateId ? { ...c, stage: stageId } : c))
     );
@@ -124,6 +128,9 @@ export const PipelinePage: React.FC = () => {
 
     const nextStage = stageOrder[idx + 1];
     sound.latch();
+    if (nextStage === 'offer' || nextStage === 'hired') {
+      fireHiredConfetti();
+    }
     setCandidates((prev) =>
       prev.map((c) => (c.id === candidateId ? { ...c, stage: nextStage } : c))
     );
