@@ -158,39 +158,40 @@ export const HomePage: React.FC = () => {
       {/* 2. MAIN WORKING CANVAS WITH GENERATED THEMATIC CARDS */}
       {/* ========================================================================= */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-6 max-w-7xl mx-auto w-full">
-        {/* KPI Strip: Generated Thematic Backgrounds */}
+        {/* KPI Strip: Generated Thematic Backgrounds with Tasteful Tints */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Card 1: Today's Interviews (CAD Wireframe Blueprint) */}
+          {/* Card 1: Today's Interviews (Sky Blue Accent) */}
           <div
             onClick={() => navigate('/interviews')}
-            className="p-5 rounded-[12px] bg-white dark:bg-[#12151D] hover:scale-[1.01] transition-all cursor-pointer space-y-2 group border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer"
+            className="p-5 rounded-[12px] bg-sky-500/[0.04] dark:bg-sky-500/[0.08] hover:scale-[1.01] transition-all cursor-pointer space-y-2 group border border-sky-500/25 dark:border-sky-500/30 shadow-sm specimen-chamfer"
           >
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-[11px] uppercase tracking-wider text-blue-700 dark:text-blue-300">Today's Interviews</span>
-              <div className="w-7 h-7 rounded-[6px] bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 dark:border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                <Calendar className="w-3.5 h-3.5" strokeWidth={2} />
+              <span className="font-bold text-[11px] uppercase tracking-wider text-sky-700 dark:text-sky-300">Today's Interviews</span>
+              <div className="w-8 h-8 rounded-[8px] bg-sky-500/15 dark:bg-sky-500/25 border border-sky-500/30 flex items-center justify-center text-sky-600 dark:text-sky-300">
+                <Calendar className="w-4 h-4" strokeWidth={2} />
               </div>
             </div>
-            <div className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <div className="text-3xl font-bold font-display text-slate-900 dark:text-white tracking-tight">
               3
             </div>
-            <div className="text-xs text-slate-600 dark:text-zinc-300 truncate font-medium">
-              Next: <strong className="text-slate-900 dark:text-white font-semibold">2:00 PM</strong> (Tariq Al-Mansoor)
+            <div className="text-xs text-slate-600 dark:text-zinc-300 truncate font-medium flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+              <span>Next: <strong className="text-slate-900 dark:text-white font-semibold">2:00 PM</strong> (Tariq Al-Mansoor)</span>
             </div>
           </div>
 
-          {/* Card 2: Offers Pending (Topographic Champagne Contour) */}
+          {/* Card 2: Offers Pending (Champagne Gold Accent) */}
           <div
             onClick={() => navigate('/candidates?stage=offer')}
-            className="p-5 rounded-[12px] bg-white dark:bg-[#12151D] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer specimen-chamfer-champagne"
+            className="p-5 rounded-[12px] bg-[#8A6D3B]/[0.06] dark:bg-[#d4c5a9]/[0.08] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-[#8A6D3B]/30 dark:border-[#d4c5a9]/30 shadow-sm specimen-chamfer specimen-chamfer-champagne"
           >
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-[11px] uppercase tracking-wider text-[#8A6D3B] dark:text-[#d4c5a9]">Offers Pending</span>
-              <div className="w-7 h-7 rounded-[6px] bg-[#8A6D3B]/10 dark:bg-[#d4c5a9]/20 border border-[#8A6D3B]/30 dark:border-[#d4c5a9]/40 flex items-center justify-center text-[#8A6D3B] dark:text-[#d4c5a9]">
-                <Award className="w-3.5 h-3.5" strokeWidth={2} />
+              <div className="w-8 h-8 rounded-[8px] bg-[#8A6D3B]/20 dark:bg-[#d4c5a9]/20 border border-[#8A6D3B]/40 dark:border-[#d4c5a9]/40 flex items-center justify-center text-[#8A6D3B] dark:text-[#d4c5a9]">
+                <Award className="w-4 h-4" strokeWidth={2} />
               </div>
             </div>
-            <div className="text-3xl font-bold text-[#8A6D3B] dark:text-[#d4c5a9] tracking-tight">
+            <div className="text-3xl font-bold font-display text-[#8A6D3B] dark:text-[#d4c5a9] tracking-tight">
               {activeOffers.length || 1}
             </div>
             <div className="text-xs text-slate-600 dark:text-zinc-200 truncate font-medium">
@@ -198,37 +199,38 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 3: Stalled Candidates (Industrial Heavy Facility) */}
+          {/* Card 3: Stalled Candidates (Amber Warning Accent) */}
           <div
             onClick={() => navigate('/candidates?stalled=true')}
-            className="p-5 rounded-[12px] bg-white dark:bg-[#12151D] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer"
+            className="p-5 rounded-[12px] bg-amber-500/[0.05] dark:bg-amber-500/[0.08] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-amber-500/25 dark:border-amber-500/30 shadow-sm specimen-chamfer"
           >
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-[11px] uppercase tracking-wider text-amber-700 dark:text-amber-300">Stalled Records</span>
-              <div className="w-7 h-7 rounded-[6px] bg-amber-500/10 dark:bg-amber-500/20 border border-amber-500/20 dark:border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                <AlertTriangle className="w-3.5 h-3.5" strokeWidth={2} />
+              <div className="w-8 h-8 rounded-[8px] bg-amber-500/20 border border-amber-500/35 flex items-center justify-center text-amber-700 dark:text-amber-400">
+                <AlertTriangle className="w-4 h-4" strokeWidth={2} />
               </div>
             </div>
-            <div className="text-3xl font-bold text-amber-600 dark:text-amber-400 tracking-tight">
+            <div className="text-3xl font-bold font-display text-amber-600 dark:text-amber-400 tracking-tight">
               {stalledCandidates.length || 3}
             </div>
-            <div className="text-xs text-slate-600 dark:text-zinc-300 truncate font-medium">
-              &gt; 7 days without movement
+            <div className="text-xs text-slate-600 dark:text-zinc-300 truncate font-medium flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              <span>&gt; 7 days without movement</span>
             </div>
           </div>
 
-          {/* Card 4: Active Requisitions (Neural Sourcing Mesh) */}
+          {/* Card 4: Active Requisitions (Field Emerald Accent) */}
           <div
             onClick={() => navigate('/jobs')}
-            className="p-5 rounded-[12px] bg-white dark:bg-[#12151D] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-black/[0.08] dark:border-white/10 shadow-sm specimen-chamfer"
+            className="p-5 rounded-[12px] bg-emerald-500/[0.05] dark:bg-emerald-500/[0.08] hover:scale-[1.01] transition-all cursor-pointer space-y-2 border border-emerald-500/25 dark:border-emerald-500/30 shadow-sm specimen-chamfer"
           >
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-[11px] uppercase tracking-wider text-emerald-700 dark:text-emerald-300">Open Requisitions</span>
-              <div className="w-7 h-7 rounded-[6px] bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 dark:border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                <Briefcase className="w-3.5 h-3.5" strokeWidth={2} />
+              <div className="w-8 h-8 rounded-[8px] bg-emerald-500/15 dark:bg-emerald-500/25 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                <Briefcase className="w-4 h-4" strokeWidth={2} />
               </div>
             </div>
-            <div className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <div className="text-3xl font-bold font-display text-emerald-700 dark:text-emerald-400 tracking-tight">
               {jobs.length || 5}
             </div>
             <div className="text-xs text-slate-600 dark:text-zinc-300 truncate font-medium">
@@ -263,7 +265,7 @@ export const HomePage: React.FC = () => {
               <div className="flex items-center justify-between pb-3 border-b border-black/[0.08] dark:border-white/[0.08]">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">
+                  <span className="type-section-title text-slate-900 dark:text-white">
                     Today's Interview Schedule ({todayInterviews.length})
                   </span>
                 </div>
@@ -276,36 +278,52 @@ export const HomePage: React.FC = () => {
                 </button>
               </div>
 
-              <div className="divide-y divide-black/[0.06] dark:divide-white/[0.06]">
-                {todayInterviews.map((intv) => (
-                  <div key={intv.id} className="py-3.5 flex items-center justify-between gap-4 text-xs">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-bold text-sm text-slate-900 dark:text-white">{intv.candidateName}</span>
-                        <Badge variant="champagne" size="sm">{intv.type}</Badge>
-                      </div>
-                      <div className="text-xs text-slate-600 dark:text-zinc-300">
-                        {intv.jobTitle} • <strong className="text-emerald-700 dark:text-emerald-400 font-semibold">{intv.timeFormatted}</strong> • Host: {intv.interviewer}
-                      </div>
-                    </div>
+              <div className="space-y-2.5">
+                {todayInterviews.map((intv) => {
+                  const borderClass = intv.type.includes('Technical')
+                    ? 'border-l-4 border-l-sky-500 bg-sky-500/[0.02] dark:bg-sky-500/[0.04]'
+                    : intv.type.includes('Offer')
+                    ? 'border-l-4 border-l-[#8A6D3B] dark:border-l-[#d4c5a9] bg-[#8A6D3B]/[0.03] dark:bg-[#d4c5a9]/[0.05]'
+                    : 'border-l-4 border-l-teal-500 bg-teal-500/[0.02] dark:bg-teal-500/[0.04]';
 
-                    <Button
-                      size="xs"
-                      variant="machined"
-                      onClick={() => navigate(`/candidates/${intv.candidateId}`)}
-                      className="shrink-0 font-medium"
+                  return (
+                    <div
+                      key={intv.id}
+                      className={cn(
+                        'p-3.5 rounded-[9px] flex items-center justify-between gap-4 text-xs border border-black/[0.06] dark:border-white/[0.08] transition-all hover:bg-black/[0.02] dark:hover:bg-white/[0.03]',
+                        borderClass
+                      )}
                     >
-                      <span>Dossier →</span>
-                    </Button>
-                  </div>
-                ))}
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-sm text-slate-900 dark:text-white">{intv.candidateName}</span>
+                          <Badge variant={intv.type.includes('Offer') ? 'champagne' : 'neutral'} size="sm">
+                            {intv.type}
+                          </Badge>
+                        </div>
+                        <div className="text-xs text-slate-600 dark:text-zinc-300">
+                          {intv.jobTitle} • <strong className="text-emerald-700 dark:text-emerald-400 font-semibold">{intv.timeFormatted}</strong> • Host: {intv.interviewer}
+                        </div>
+                      </div>
+
+                      <Button
+                        size="xs"
+                        variant="machined"
+                        onClick={() => navigate(`/candidates/${intv.candidateId}`)}
+                        className="shrink-0 font-semibold text-xs"
+                      >
+                        <span>Dossier →</span>
+                      </Button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Candidates Awaiting Initial Review */}
             <div className="rounded-[12px] bg-white dark:bg-[#12151D] p-6 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 specimen-chamfer">
               <div className="flex items-center justify-between pb-3 border-b border-black/[0.08] dark:border-white/[0.08]">
-                <span className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">
+                <span className="type-section-title text-slate-900 dark:text-white">
                   Awaiting Initial Review ({pendingReview.length})
                 </span>
                 <button
@@ -317,37 +335,49 @@ export const HomePage: React.FC = () => {
                 </button>
               </div>
 
-              <div className="divide-y divide-black/[0.06] dark:divide-white/[0.06]">
+              <div className="space-y-2.5">
                 {pendingReview.map((c) => (
                   <div
                     key={c.id}
                     onClick={() => navigate(`/candidates/${c.id}`)}
-                    className="py-3 flex items-center justify-between gap-3 text-xs cursor-pointer hover:bg-black/[0.03] dark:hover:bg-white/[0.04] px-2 rounded-[6px] transition-colors"
+                    className="p-3.5 rounded-[9px] bg-slate-50 dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between gap-3 text-xs cursor-pointer hover:border-[#8A6D3B]/40 dark:hover:border-[#d4c5a9]/40 transition-all"
                   >
                     <div className="flex items-center gap-3">
                       {c.avatar ? (
                         <img
                           src={c.avatar}
                           alt={c.name}
-                          className="w-9 h-9 rounded-[8px] object-cover border border-black/10 dark:border-white/10 shrink-0"
+                          className="w-10 h-10 rounded-[8px] object-cover border border-black/10 dark:border-white/10 shrink-0"
                           onError={(e) => {
                             (e.currentTarget as HTMLElement).style.display = 'none';
                           }}
                         />
                       ) : (
-                        <div className="w-9 h-9 rounded-[8px] bg-slate-200 dark:bg-gradient-to-br dark:from-[#242834] dark:to-[#12141a] border border-black/10 dark:border-white/10 flex items-center justify-center font-bold text-xs text-[#8A6D3B] dark:text-[#d4c5a9] shrink-0">
+                        <div className="w-10 h-10 rounded-[8px] bg-gradient-to-br from-[#8A6D3B]/20 to-[#8A6D3B]/5 dark:from-[#d4c5a9]/20 dark:to-[#d4c5a9]/5 border border-[#8A6D3B]/30 dark:border-[#d4c5a9]/30 flex items-center justify-center font-bold text-xs text-[#8A6D3B] dark:text-[#d4c5a9] shrink-0">
                           {c.name.split(' ').map(n => n[0]).join('')}
                         </div>
                       )}
                       <div>
-                        <div className="font-bold text-slate-900 dark:text-white text-sm">{c.name}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900 dark:text-white text-sm">{c.name}</span>
+                          {c.tags.includes('P.Eng.') ? (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#8A6D3B]/15 dark:bg-[#d4c5a9]/15 text-[#8A6D3B] dark:text-[#d4c5a9] border border-[#8A6D3B]/30">P.Eng.</span>
+                          ) : c.tags.includes('CET') ? (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-zinc-200">CET</span>
+                          ) : null}
+                        </div>
                         <div className="text-xs text-slate-600 dark:text-zinc-300 mt-0.5">
-                          {c.currentRole} • {c.currentCompany} ({c.experienceYears}y exp)
+                          {c.currentRole} • <strong className="text-slate-800 dark:text-zinc-200">{c.currentCompany}</strong> ({c.experienceYears}y exp)
                         </div>
                       </div>
                     </div>
 
-                    <Button size="xs" variant="machined">Inspect →</Button>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        {Math.round(c.rating * 20)}% Fit
+                      </span>
+                      <Button size="xs" variant="machined">Inspect →</Button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -358,7 +388,7 @@ export const HomePage: React.FC = () => {
           <div className="lg:col-span-4 space-y-6">
             <div className="rounded-[12px] bg-white dark:bg-[#12151D] p-6 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 specimen-chamfer">
               <div className="flex items-center justify-between pb-3 border-b border-black/[0.08] dark:border-white/[0.08]">
-                <span className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">
+                <span className="type-section-title text-slate-900 dark:text-white">
                   Action Items ({tasks.filter(t => !t.completed).length})
                 </span>
                 <button
@@ -370,9 +400,12 @@ export const HomePage: React.FC = () => {
                 </button>
               </div>
 
-              <div className="divide-y divide-black/[0.06] dark:divide-white/[0.06]">
-                {tasks.slice(0, 5).map((t) => (
-                  <div key={t.id} className="py-3.5 flex items-start gap-3 text-xs">
+              <div className="space-y-2.5">
+                {tasks.slice(0, 5).map((t, idx) => (
+                  <div
+                    key={t.id}
+                    className="p-3 rounded-[8px] bg-slate-50 dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.08] flex items-start gap-3 text-xs"
+                  >
                     <input
                       type="checkbox"
                       checked={t.completed}
@@ -380,8 +413,14 @@ export const HomePage: React.FC = () => {
                       className="mt-0.5 h-4 w-4 rounded border-black/20 dark:border-white/[0.2] bg-white dark:bg-[#0c0d10] text-[#8A6D3B] dark:text-[#d4c5a9] cursor-pointer"
                     />
                     <div className="min-w-0 flex-1 space-y-0.5">
-                      <div className={cn('font-semibold text-xs leading-snug', t.completed ? 'line-through text-slate-400 dark:text-zinc-500' : 'text-slate-900 dark:text-white')}>
-                        {t.title}
+                      <div className="flex items-center justify-between">
+                        <span className={cn('font-semibold text-xs leading-snug', t.completed ? 'line-through text-slate-400 dark:text-zinc-500' : 'text-slate-900 dark:text-white')}>
+                          {t.title}
+                        </span>
+                        <span className={cn(
+                          'w-2 h-2 rounded-full shrink-0',
+                          idx === 0 ? 'bg-rose-500' : idx === 1 ? 'bg-amber-500' : 'bg-emerald-500'
+                        )} />
                       </div>
                       <div className="text-[11px] text-slate-600 dark:text-zinc-300 leading-relaxed">
                         {t.description}

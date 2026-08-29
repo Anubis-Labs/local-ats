@@ -181,61 +181,102 @@ export const JobsPage: React.FC = () => {
       {/* ========================================================================= */}
       <main className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-6 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredJobs.map((job) => (
-            <div
-              key={job.id}
-              onClick={() => {
-                sound.click();
-                navigate(`/jobs/${job.id}`);
-              }}
-              className={cn(
-                'rounded-[12px] p-6 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer',
-                job.priority === 'urgent'
-                  ? 'bg-amber-50/70 dark:bg-[#201C14] border-amber-300/40 dark:border-[#d4c5a9]/30'
-                  : 'bg-white dark:bg-[#12151D]'
-              )}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="font-bold text-base text-slate-900 dark:text-white">{job.title}</h3>
-                    <Badge variant={job.priority === 'urgent' ? 'destructive' : 'champagne'} size="sm">
-                      {job.priority}
-                    </Badge>
-                    <Badge variant={job.status === 'active' ? 'success' : 'neutral'} size="sm">
-                      {job.status}
-                    </Badge>
-                  </div>
-                  <div className="text-xs text-slate-600 dark:text-zinc-300 mt-1 font-medium">
-                    {job.department} • {job.location}
-                  </div>
-                </div>
-              </div>
+          {filteredJobs.map((job) => {
+            const isPiping = job.department.toLowerCase().includes('piping');
+            const isMech = job.department.toLowerCase().includes('mechanical') || job.department.toLowerCase().includes('hvac');
+            const isElec = job.department.toLowerCase().includes('electrical') || job.department.toLowerCase().includes('instrumentation');
+            const isControls = job.department.toLowerCase().includes('controls') || job.department.toLowerCase().includes('cost');
 
-              {/* Metric Row */}
-              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/[0.06] dark:border-white/10 text-center">
-                <div className="p-2.5 rounded-[8px] bg-slate-50 dark:bg-black/40 border border-black/[0.06] dark:border-white/10">
-                  <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-zinc-400">Target Hires</div>
-                  <div className="font-bold text-lg text-slate-900 dark:text-white mt-0.5">{job.targetHires}</div>
-                </div>
-                <div className="p-2.5 rounded-[8px] bg-slate-50 dark:bg-black/40 border border-black/[0.06] dark:border-white/10">
-                  <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-zinc-400">Pipeline</div>
-                  <div className="font-bold text-lg text-[#8A6D3B] dark:text-[#d4c5a9] mt-0.5">{job.inProcessCount || 8}</div>
-                </div>
-                <div className="p-2.5 rounded-[8px] bg-slate-50 dark:bg-black/40 border border-black/[0.06] dark:border-white/10">
-                  <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-zinc-400">Hired</div>
-                  <div className="font-bold text-lg text-emerald-600 dark:text-emerald-400 mt-0.5">{job.hiresCount}</div>
-                </div>
-              </div>
+            const deptColor = isPiping
+              ? { borderTop: 'border-t-4 border-t-amber-500', bgWash: 'bg-amber-500/[0.02] dark:bg-amber-500/[0.04]', badgeVariant: 'warning' as const }
+              : isMech
+              ? { borderTop: 'border-t-4 border-t-teal-500', bgWash: 'bg-teal-500/[0.02] dark:bg-teal-500/[0.04]', badgeVariant: 'neutral' as const }
+              : isElec
+              ? { borderTop: 'border-t-4 border-t-sky-500', bgWash: 'bg-sky-500/[0.02] dark:bg-sky-500/[0.04]', badgeVariant: 'neutral' as const }
+              : isControls
+              ? { borderTop: 'border-t-4 border-t-indigo-500', bgWash: 'bg-indigo-500/[0.02] dark:bg-indigo-500/[0.04]', badgeVariant: 'champagne' as const }
+              : { borderTop: 'border-t-4 border-t-[#8A6D3B] dark:border-t-[#d4c5a9]', bgWash: 'bg-[#8A6D3B]/[0.02] dark:bg-[#d4c5a9]/[0.04]', badgeVariant: 'champagne' as const };
 
-              <div className="pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400">
-                <span>Manager: <strong className="text-slate-900 dark:text-white">{job.hiringManager}</strong></span>
-                <span className="font-semibold text-slate-700 dark:text-zinc-200 flex items-center gap-1 group-hover:text-[#8A6D3B] dark:group-hover:text-[#d4c5a9]">
-                  Requisition Spec <ChevronRight className="w-3.5 h-3.5" />
-                </span>
+            const fillPct = Math.min(100, Math.round((job.hiresCount / (job.targetHires || 1)) * 100));
+
+            return (
+              <div
+                key={job.id}
+                onClick={() => {
+                  sound.click();
+                  navigate(`/jobs/${job.id}`);
+                }}
+                className={cn(
+                  'rounded-[12px] p-6 space-y-4 shadow-sm border border-black/[0.08] dark:border-white/10 cursor-pointer hover:scale-[1.01] transition-all specimen-chamfer group',
+                  deptColor.borderTop,
+                  deptColor.bgWash
+                )}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-[#8A6D3B] dark:group-hover:text-[#d4c5a9] transition-colors">
+                        {job.title}
+                      </h3>
+                      <Badge variant={job.priority === 'urgent' ? 'destructive' : 'champagne'} size="sm">
+                        {job.priority}
+                      </Badge>
+                      <Badge variant={job.status === 'active' ? 'success' : 'neutral'} size="sm">
+                        {job.status}
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-zinc-300 font-medium">
+                      <strong className="text-slate-800 dark:text-zinc-200">{job.department}</strong> • {job.location} • <span className="font-mono text-[11px] text-slate-500 dark:text-zinc-400">REQ-{job.id}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="font-medium text-slate-600 dark:text-zinc-400">Fulfillment Rate</span>
+                    <span className="font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+                      {job.hiresCount} / {job.targetHires} ({fillPct}%)
+                    </span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-black/10 dark:bg-white/10 overflow-hidden flex">
+                    <div
+                      className="bg-emerald-500 transition-all h-full"
+                      style={{ width: `${fillPct}%` }}
+                    />
+                    <div
+                      className="bg-[#8A6D3B]/60 dark:bg-[#d4c5a9]/60 transition-all h-full"
+                      style={{ width: `${Math.min(100 - fillPct, ((job.inProcessCount || 8) / (job.targetHires || 1)) * 40)}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Metric Row */}
+                <div className="grid grid-cols-3 gap-2 pt-2 border-t border-black/[0.06] dark:border-white/10 text-center">
+                  <div className="p-2.5 rounded-[8px] bg-slate-50 dark:bg-black/40 border border-black/[0.06] dark:border-white/10">
+                    <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-zinc-400">Target</div>
+                    <div className="font-bold font-display text-lg text-slate-900 dark:text-white mt-0.5">{job.targetHires}</div>
+                  </div>
+                  <div className="p-2.5 rounded-[8px] bg-[#8A6D3B]/5 dark:bg-[#d4c5a9]/5 border border-[#8A6D3B]/20 dark:border-[#d4c5a9]/20">
+                    <div className="text-[10px] uppercase font-bold text-[#8A6D3B] dark:text-[#d4c5a9]">In Pipeline</div>
+                    <div className="font-bold font-display text-lg text-[#8A6D3B] dark:text-[#d4c5a9] mt-0.5">{job.inProcessCount || 8}</div>
+                  </div>
+                  <div className="p-2.5 rounded-[8px] bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/20">
+                    <div className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-400">Filled</div>
+                    <div className="font-bold font-display text-lg text-emerald-600 dark:text-emerald-400 mt-0.5">{job.hiresCount}</div>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400">
+                  <span>Manager: <strong className="text-slate-900 dark:text-white">{job.hiringManager}</strong></span>
+                  <span className="font-semibold text-[#8A6D3B] dark:text-[#d4c5a9] flex items-center gap-1">
+                    <span>Requisition Room</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
 
